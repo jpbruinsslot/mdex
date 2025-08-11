@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{- block "title" . }}{{- end }}</title>
+    <link rel="stylesheet" href="/static/css/main.css" />
+  </head>
+
+  <body>
+    <input type="checkbox" id="theme-toggle" hidden />
+    <input type="checkbox" id="sidebar-toggle" hidden {{ if .IsIndex }}checked{{ end }}/>
+    <input type="checkbox" id="toc-toggle" hidden />
+
+    <!-- Header -->
+    <header>
+      <ul>
+        <li>
+          <label for="sidebar-toggle" class="sidebar-toggle-button">
+            <svg class="icon">
+              <use href="/static/img/feather-sprite.svg#menu" />
+            </svg>
+          </label>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <label for="theme-toggle" class="theme-toggle-button">
+            <svg class="icon">
+              <use href="/static/img/feather-sprite.svg#moon" />
+            </svg>
+          </label>
+        </li>
+      </ul>
+    </header>
+
+    <!-- Main layout container -->
+    <main>
+      {{ template "sidebar.html" . }}
+
+      <article>{{- block "main" . }}{{- end }}</article>
+
+      {{- block "toc" . }}{{- end }}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <small>site created by <a href="https://github.com/jpbruinsslot/mdex">mdex</a></small>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          const themeToggle = document.getElementById("theme-toggle");
+          const icon = document.querySelector(".theme-toggle-button");
+
+          function applyTheme(theme) {
+              document.documentElement.setAttribute("data-theme", theme);
+              localStorage.setItem("theme", theme);
+              icon.querySelector('use').setAttribute('href', theme === "dark" ? "/static/img/feather-sprite.svg#sun" : "/static/img/feather-sprite.svg#moon");
+              themeToggle.checked = theme === "dark";
+          }
+
+          const savedTheme = localStorage.getItem("theme") || "light";
+          applyTheme(savedTheme);
+
+          themeToggle.addEventListener("change", () => {
+              applyTheme(themeToggle.checked ? "dark" : "light");
+          });
+      });
+      {{- block "js" . }}{{- end }}
+    </script>
+  </body>
+</html>

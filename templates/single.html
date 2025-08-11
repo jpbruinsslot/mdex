@@ -1,0 +1,11 @@
+{{ define "main" }} {{ .Content }} {{ end }}
+
+{{ define "toc" }}
+
+{{ template "toc.html" . }}
+<label for="toc-toggle" class="toc-toggle-button">
+  <svg class="icon">
+    <use href="/static/img/feather-sprite.svg#list" />
+  </svg>
+</label>
+{{ end }}

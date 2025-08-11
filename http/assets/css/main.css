@@ -1,0 +1,292 @@
+/* Box sixing reset, this is done to ensure that padding and border are included in the element's total width and height */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --background-color: #f8f8f8;
+  --primary-color: #007bff;
+  --secondary-color: #eee;
+  --text-color: #333;
+  --header-background-color: #f8f8f8;
+  --header-border-color: #ddd;
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
+  --link-visited-color: #6f42c1;
+  --font-family: sans-serif;
+  --code-font-family: monospace;
+  --code-font-color: #f8f8f2;
+  --code-background-color: #303446;
+  --header-height: 3rem;
+  --sidebar-width: 280px;
+}
+
+[data-theme="dark"] {
+  --background-color: #282c34;
+  --primary-color: #61afef;
+  --secondary-color: #3e4451;
+  --text-color: #abb2bf;
+  --header-background-color: #282c34;
+  --header-border-color: #4b5263;
+  --link-color: #61afef;
+  --link-hover-color: #98c379;
+  --link-visited-color: #c678dd;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--link-hover-color);
+}
+
+a:focus,
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+pre code {
+  background-color: var(--code-background-color);
+  display: block;
+  padding: 1rem;
+  filter: none;
+  overflow-x: auto;
+  font-family: var(--code-font-family);
+  font-size: 0.875rem;
+  color: var(--code-font-color);
+  line-height: 1.2;
+  border-radius: 0.5rem;
+}
+
+table {
+  overflow-x: auto;
+  display: block;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--header-border-color);
+}
+
+thead th {
+  border-bottom-width: 2px;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.sidebar-toggle-button,
+.toc-close-button,
+.toc-toggle-button {
+  cursor: pointer;
+  display: none;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  height: var(--header-height);
+  border-bottom: 1px solid var(--header-border-color);
+  background-color: var(--secondary-color);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+header ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1rem;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+}
+
+main ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+}
+
+main ::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+main ::-webkit-scrollbar-thumb {
+  background: #8e8e8e;
+  border: 1px solid #424242;
+  border-radius: 5px;
+}
+
+main ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+main > article {
+  width: 60%;
+  padding: 0 1rem;
+  line-height: 1.6;
+  font-size: 1.125rem;
+  color: var(--text-color);
+  overflow-wrap: break-word;
+}
+
+main > article > p {
+  text-align: justify;
+}
+
+main > nav.sidebar,
+main > nav.toc {
+  width: 20%;
+  position: sticky;
+  top: calc(var(--header-height) + 1px); /* 1px to avoid overlap with header */
+  max-height: calc(100vh - var(--header-height));
+  overflow: auto;
+  padding: 1rem;
+}
+
+main > nav.sidebar ul,
+main > nav.toc ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+main > nav li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+main > nav a {
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+main > nav a:hover {
+  text-decoration: none;
+}
+
+main > nav .icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+}
+
+@media (width <= 768px) {
+  main {
+    padding: 0 1rem;
+  }
+
+  main > article {
+    width: 100%;
+    padding: 0;
+  }
+
+  .sidebar-toggle-button {
+    display: inline-block;
+  }
+
+  .toc-toggle-button {
+    display: inline-block;
+    position: fixed;
+    bottom: 1rem;
+    right: 0;
+    padding: 0.5rem 0.2rem 0.5rem 0.75rem;
+    border-radius: 1.5rem 0 0 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+    transition: right 0.3s ease-in-out;
+    background-color: var(--secondary-color);
+  }
+
+  /* Both sidebars are taken out of flow and positioned off-screen */
+  main > nav.sidebar,
+  main > nav.toc {
+    position: fixed;
+    top: calc(var(--header-height) + 1px);
+    height: calc(100vh - var(--header-height));
+    width: var(--sidebar-width);
+    background-color: var(--secondary-color);
+    z-index: 1001;
+    transform: translateX(-100%); /* Hide sidebar to the left */
+    transition: transform 0.3s ease-in-out;
+    overflow-y: auto;
+  }
+
+  main > nav.sidebar {
+    left: 0;
+    right: auto;
+    transform: translateX(-100%); /* Hide sidebar to the left */
+  }
+
+  main > nav.sidebar > li {
+    display: flex;
+    align-items: center;
+  }
+
+  main > nav.toc {
+    left: auto;
+    right: 0;
+    transform: translateX(100%); /* Hide TOC to the right */
+  }
+
+  /* When toggled, slide the sidebars into view */
+  #sidebar-toggle:checked ~ main .sidebar,
+  #toc-toggle:checked ~ main .toc {
+    transform: translateX(0);
+  }
+
+  #toc-toggle:checked ~ main .toc-toggle-button {
+    right: calc(var(--sidebar-width));
+  }
+}

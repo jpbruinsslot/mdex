@@ -1,0 +1,19 @@
+<nav id="sidebar" class="sidebar" aria-label="Sidebar">
+  <ul>
+    {{ range .Files }}
+    <li>
+      {{ if .IsDir }}
+      <svg class="icon">
+        <use href="/static/img/feather-sprite.svg#folder" />
+      </svg>
+      <a href="/{{ .Path }}/"> {{ .Name }} </a>
+      {{ else }}
+      <svg class="icon">
+        <use href="/static/img/feather-sprite.svg#file-text" />
+      </svg>
+      <a href="/{{ .RoutePath }}"> {{ .Name }}</a>
+      {{ end }}
+    </li>
+    {{ end }}
+  </ul>
+</nav>

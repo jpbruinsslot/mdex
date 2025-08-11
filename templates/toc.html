@@ -1,0 +1,11 @@
+<nav id="toc" class="toc" aria-label="Table of Contents">
+  <h2>Table of Contents</h2>
+  <ul>
+    {{ range .TOC }}
+    <li style="margin-left: {{ .Level }}em;">
+      <a href="#{{ .ID }}">{{ .Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
+</nav>
+
